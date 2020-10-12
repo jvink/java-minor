@@ -2,43 +2,47 @@ package com.example.assignments._spring_rest.services;
 
 import com.example.assignments._spring_rest.models.RekeningDTO;
 import com.example.assignments._spring_rest.models.RekeningHouderDTO;
+import com.example.assignments._spring_rest.repositories.RekeningRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RekeningService {
-    private List<RekeningDTO> rekeningen = new ArrayList<>(Arrays.asList(
-        new RekeningDTO(
-            "1",
-            "NL91ABNA0417164300",
-            1204.12,
-            false,
-            new ArrayList<>(Arrays.asList(new RekeningHouderDTO("a", "Freek", "Vonk"))
-        )),
-        new RekeningDTO(
-            "1",
-            "NL12ABNA0119344422",
-            2000.00,
-            false,
-            new ArrayList<>(Arrays.asList(new RekeningHouderDTO("b", "Ronald", "de Mast"))
-        ))
-    ));
+    @Autowired
+    private RekeningRepository rekeningRepository;
+
+//    private List<RekeningDTO> rekeningen = new ArrayList<>(Arrays.asList(
+//        new RekeningDTO(
+//            "1",
+//            "NL91ABNA0417164300",
+//            1204.12,
+//            false,
+//            new ArrayList<>(Arrays.asList(new RekeningHouderDTO("a", "Freek", "Vonk"))
+//        )),
+//        new RekeningDTO(
+//            "1",
+//            "NL12ABNA0119344422",
+//            2000.00,
+//            false,
+//            new ArrayList<>(Arrays.asList(new RekeningHouderDTO("b", "Ronald", "de Mast"))
+//        ))
+//    ));
 
     public List<RekeningDTO> getRekeningen() {
-        return rekeningen;
+        return rekeningRepository.findAll();
     }
 
-    public RekeningDTO getRekening(String id) {
-        return rekeningen.stream().filter(rekening -> rekening.getId().equals(id)).findFirst().get();
+    public Optional<RekeningDTO> getRekening(Long id) {
+        return rekeningRepository.findById(id);
     }
 
-    public void blockRekening(String id) {
-        RekeningDTO rekening =  rekeningen.stream().filter(filteredRekening -> filteredRekening.getId().equals(id)).findFirst().get();
+    public void blockRekening(Long id) {
+        Optional<RekeningDTO> rekening =  rekeningRepository.findById(id);
         if (rekening != null) {
-            rekening.setBlocked(true);
+            rekening.get().setBlocked(true);
         } else {
             throw new Error("Deze rekening bestaat niet.");
         }

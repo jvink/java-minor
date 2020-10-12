@@ -12,7 +12,7 @@ import java.util.List;
 public class RekeningDTO {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
+    private Long id;
 
     @NotBlank(message = "Iban is verplicht")
     private String iban;
@@ -22,7 +22,7 @@ public class RekeningDTO {
     private Boolean blocked;
     private List<RekeningHouderDTO> rekeningHouders;
 
-    public RekeningDTO(String id, String iban, Double saldo, Boolean blocked, List<RekeningHouderDTO> rekeningHouders) {
+    public RekeningDTO(Long id, String iban, Double saldo, Boolean blocked, List<RekeningHouderDTO> rekeningHouders) {
         this.id = id;
         this.iban = iban;
         this.saldo = saldo;
@@ -30,7 +30,7 @@ public class RekeningDTO {
         this.rekeningHouders = rekeningHouders;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 

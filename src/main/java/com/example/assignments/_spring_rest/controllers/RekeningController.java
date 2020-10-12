@@ -21,34 +21,34 @@ public class RekeningController {
     @PostMapping
     @RequestMapping("addRekeningHouderToRekening")
     public @ResponseBody
-    void addRekeningHouderToRekening(@RequestBody RekeningHouderDTO rekeningHouderDTO, String rekeningId) {
+    void addRekeningHouderToRekening(@RequestBody RekeningHouderDTO rekeningHouderDTO, Long rekeningId) {
         rekeningService.addRekeningHouderToRekening(rekeningHouderDTO, rekeningId);
     }
 
     @PostMapping
     @RequestMapping("removeRekeningHouderFromRekening")
     public @ResponseBody
-    void removeRekeningHouderFromRekening(@RequestBody String rekeningHouderId, String rekeningId) {
+    void removeRekeningHouderFromRekening(@RequestBody String rekeningHouderId, Long rekeningId) {
         rekeningService.removeRekeningHouderFromRekening(rekeningHouderId, rekeningId);
     }
 
     @PostMapping
     @RequestMapping("blockRekening")
     public @ResponseBody
-    void blockRekening(@RequestBody String rekeningId) {
+    void blockRekening(@RequestBody Long rekeningId) {
         rekeningService.blockRekening(rekeningId);
     }
 
     @PostMapping
     @RequestMapping("unBlockRekening")
     public @ResponseBody
-    void unBlockRekening(@RequestBody String rekeningId) {
+    void unBlockRekening(@RequestBody Long rekeningId) {
         rekeningService.unBlockRekening(rekeningId);
     }
 
     @RequestMapping("getRekening")
     public @ResponseBody
-    RekeningDTO getRekening(@RequestBody String rekeningId) {
+    RekeningDTO getRekening(@RequestBody Long rekeningId) {
         return rekeningService.getRekening(rekeningId);
     }
 
