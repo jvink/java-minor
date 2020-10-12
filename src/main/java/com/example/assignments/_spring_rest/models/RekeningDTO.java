@@ -1,11 +1,14 @@
 package com.example.assignments._spring_rest.models;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -20,6 +23,8 @@ public class RekeningDTO {
     @Min(value = 0, message = "Er kan geen saldo onder de nul zijn.")
     private Double saldo;
     private Boolean blocked;
+    @CreationTimestamp
+    private Date createdAt;
     private List<RekeningHouderDTO> rekeningHouders;
 
     public RekeningDTO(Long id, String iban, Double saldo, Boolean blocked, List<RekeningHouderDTO> rekeningHouders) {

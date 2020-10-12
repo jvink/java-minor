@@ -6,6 +6,9 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 
 public class RekeningHouderDTO {
+    public enum Gender {
+        MALE, FEMALE
+    }
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private String id;
@@ -15,10 +18,12 @@ public class RekeningHouderDTO {
 
     @NotBlank(message = "Achternaam is verplicht")
     private String lastName;
+    private Gender gender;
 
-    public RekeningHouderDTO(String id, String firstName, String lastName) {
+    public RekeningHouderDTO(String id, String firstName, String lastName, Gender gender) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.gender = gender;
     }
 }
