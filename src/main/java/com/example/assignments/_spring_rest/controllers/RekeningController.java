@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @CrossOrigin(origins = "*")
+@RequestMapping("/rekening")
 @RestController
 public class RekeningController {
     private RekeningService rekeningService;
@@ -20,40 +21,39 @@ public class RekeningController {
     }
 
     @PostMapping
-    @RequestMapping("addRekeningHouderToRekening")
+    @RequestMapping("addRekeningHouder")
     public @ResponseBody
     void addRekeningHouderToRekening(@RequestBody RekeningHouderDTO rekeningHouderDTO, Long rekeningId) {
         rekeningService.addRekeningHouderToRekening(rekeningHouderDTO, rekeningId);
     }
 
     @PostMapping
-    @RequestMapping("removeRekeningHouderFromRekening")
+    @RequestMapping("removeRekeningHouder")
     public @ResponseBody
     void removeRekeningHouderFromRekening(@RequestBody String rekeningHouderId, Long rekeningId) {
         rekeningService.removeRekeningHouderFromRekening(rekeningHouderId, rekeningId);
     }
 
     @PostMapping
-    @RequestMapping("blockRekening")
+    @RequestMapping("block")
     public @ResponseBody
     void blockRekening(@RequestBody Long rekeningId) {
         rekeningService.blockRekening(rekeningId);
     }
 
     @PostMapping
-    @RequestMapping("unBlockRekening")
+    @RequestMapping("unBlock")
     public @ResponseBody
     void unBlockRekening(@RequestBody Long rekeningId) {
         rekeningService.unBlockRekening(rekeningId);
     }
 
-    @RequestMapping("getRekening")
     public @ResponseBody
     Optional<RekeningDTO> getRekening(@RequestBody Long rekeningId) {
         return rekeningService.getRekening(rekeningId);
     }
 
-    @RequestMapping("getRekeningen")
+    @RequestMapping("all")
     public @ResponseBody
     List<RekeningDTO> getRekeningen() {
         return rekeningService.getRekeningen();
