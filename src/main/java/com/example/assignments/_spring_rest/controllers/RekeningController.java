@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -48,7 +49,7 @@ public class RekeningController {
 
     @RequestMapping("getRekening")
     public @ResponseBody
-    RekeningDTO getRekening(@RequestBody Long rekeningId) {
+    Optional<RekeningDTO> getRekening(@RequestBody Long rekeningId) {
         return rekeningService.getRekening(rekeningId);
     }
 

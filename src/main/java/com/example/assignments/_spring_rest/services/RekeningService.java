@@ -14,23 +14,6 @@ public class RekeningService {
     @Autowired
     private RekeningRepository rekeningRepository;
 
-//    private List<RekeningDTO> rekeningen = new ArrayList<>(Arrays.asList(
-//        new RekeningDTO(
-//            "1",
-//            "NL91ABNA0417164300",
-//            1204.12,
-//            false,
-//            new ArrayList<>(Arrays.asList(new RekeningHouderDTO("a", "Freek", "Vonk"))
-//        )),
-//        new RekeningDTO(
-//            "1",
-//            "NL12ABNA0119344422",
-//            2000.00,
-//            false,
-//            new ArrayList<>(Arrays.asList(new RekeningHouderDTO("b", "Ronald", "de Mast"))
-//        ))
-//    ));
-
     public List<RekeningDTO> getRekeningen() {
         return rekeningRepository.findAll();
     }
@@ -48,23 +31,23 @@ public class RekeningService {
         }
     }
 
-    public void unBlockRekening(String id) {
-        RekeningDTO rekening =  rekeningen.stream().filter(filteredRekening -> filteredRekening.getId().equals(id)).findFirst().get();
+    public void unBlockRekening(Long id) {
+        Optional<RekeningDTO> rekening =  rekeningRepository.findById(id);
         if (rekening != null) {
-            rekening.setBlocked(false);
+            rekening.get().setBlocked(false);
         } else {
             throw new Error("Deze rekening bestaat niet.");
         }
     }
 
-    public void addRekeningHouderToRekening(RekeningHouderDTO rekeningHouderDTO, String rekeningId) {
-        RekeningDTO rekening =  rekeningen.stream().filter(filteredRekening -> filteredRekening.getId().equals(rekeningId)).findFirst().get();
-        rekening.getRekeningHouders().add(rekeningHouderDTO);
+    public void addRekeningHouderToRekening(RekeningHouderDTO rekeningHouderDTO, Long rekeningId) {
+        Optional<RekeningDTO> rekening =  rekeningRepository.findById(rekeningId);
+        rekening.get().getRekeningHouders().add(rekeningHouderDTO);
     }
 
-    public void removeRekeningHouderFromRekening(String rekeningHouderId, String rekeningId) {
-        RekeningDTO rekening =  rekeningen.stream().filter(filteredRekening -> filteredRekening.getId().equals(rekeningId)).findFirst().get();
-        RekeningHouderDTO rekeningHouder =  rekening.getRekeningHouders().stream().filter(filteredRekeningHouder -> filteredRekeningHouder.equals(rekeningHouderId)).findFirst().get();
-        rekening.getRekeningHouders().remove(rekeningHouder);
+    public void removeRekeningHouderFromRekening(String rekeningHouderId, Long rekeningId) {
+        Optional<RekeningDTO> rekening =  rekeningRepository.findById(rekeningId);
+        RekeningHouderDTO rekeningHouder =  rekening.get().getRekeningHouders().stream().filter(filteredRekeningHouder -> filteredRekeningHouder.equals(rekeningHouderId)).findFirst().get();
+        rekening.get().getRekeningHouders().remove(rekeningHouder);
     }
 }
