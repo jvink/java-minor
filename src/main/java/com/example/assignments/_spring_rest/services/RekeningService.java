@@ -3,6 +3,7 @@ package com.example.assignments._spring_rest.services;
 import com.example.assignments._spring_rest.models.Rekening;
 import com.example.assignments._spring_rest.repositories.RekeningRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,6 +18,7 @@ public class RekeningService {
         return rekeningRepository.findAll();
     }
 
+    @Cacheable("rekeningen")
     public Optional<Rekening> getRekening(Long id) {
         return rekeningRepository.findById(id);
     }

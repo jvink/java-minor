@@ -1,5 +1,6 @@
 package com.example.assignments._spring_rest.controllers;
 
+import com.example.assignments._spring_rest.annotations.Measured;
 import com.example.assignments._spring_rest.models.CombiRekening;
 import com.example.assignments._spring_rest.models.Rekening;
 import com.example.assignments._spring_rest.services.CombiRekeningService;
@@ -25,31 +26,37 @@ public class RekeningController {
     }
 
     @PostMapping
+    @Measured(message = "Add rekening")
     public void addRekening(@Valid @RequestBody Rekening rekening) {
         rekeningService.addRekening(rekening);
     }
 
     @PostMapping("/combi")
+    @Measured(message = "Add combirekening")
     public void addCombiRekening(@Valid @RequestBody CombiRekening combiRekening) {
         combiRekeningService.addRekening(combiRekening);
     }
 
     @PutMapping
+    @Measured(message = "Update rekening")
     public void updateRekening(@Valid @RequestBody Rekening rekening) {
         rekeningService.updateRekening(rekening);
     }
 
     @DeleteMapping(path = "/{rekeningId}")
+    @Measured(message = "Remove rekening")
     public void removeRekening(@PathVariable Long rekeningId) {
         rekeningService.removeRekening(rekeningId);
     }
 
     @GetMapping(path = "/{rekeningId}")
+    @Measured(message = "Get rekening")
     public Optional<Rekening> getRekening(@PathVariable Long rekeningId) {
         return rekeningService.getRekening(rekeningId);
     }
 
     @GetMapping
+    @Measured(message = "Get rekeningen")
     public List<Rekening> getRekeningen() {
         return rekeningService.getRekeningen();
     }
